@@ -1,6 +1,6 @@
-<domain type='kvm' id='52'>
+<domain type='kvm' id='53'>
   <name>model-uefi</name>
-  <uuid>28e37823-65df-4eae-b746-09004c2c7906</uuid>
+  <uuid>3d1f04a7-9af6-4d08-b440-c86a1ea1ea49</uuid>
   <memory unit='KiB'>2097152</memory>
   <currentMemory unit='KiB'>2097152</currentMemory>
   <vcpu placement='static'>2</vcpu>
@@ -9,6 +9,8 @@
   </resource>
   <os>
     <type arch='x86_64' machine='pc-i440fx-2.9'>hvm</type>
+    <loader readonly='yes' type='pflash'>/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd</loader>
+    <nvram>/var/lib/libvirt/qemu/nvram/model-uefi_VARS.fd</nvram>
     <boot dev='hd'/>
   </os>
   <features>
@@ -83,7 +85,7 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
     </controller>
     <interface type='bridge'>
-      <mac address='52:54:00:49:2b:71'/>
+      <mac address='52:54:00:c7:9b:41'/>
       <source bridge='vmbr0'/>
       <target dev='vnet6'/>
       <model type='virtio'/>
@@ -101,7 +103,7 @@
       <alias name='serial0'/>
     </console>
     <channel type='unix'>
-      <source mode='bind' path='/var/lib/libvirt/qemu/channel/target/domain-52-model-uefi/org.qemu.guest_agent.0'/>
+      <source mode='bind' path='/var/lib/libvirt/qemu/channel/target/domain-53-model-uefi/org.qemu.guest_agent.0'/>
       <target type='virtio' name='org.qemu.guest_agent.0' state='disconnected'/>
       <alias name='channel0'/>
       <address type='virtio-serial' controller='0' bus='0' port='1'/>
@@ -146,10 +148,15 @@
       <alias name='balloon0'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
     </memballoon>
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+      <alias name='rng0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
+    </rng>
   </devices>
   <seclabel type='dynamic' model='selinux' relabel='yes'>
-    <label>system_u:system_r:svirt_t:s0:c705,c757</label>
-    <imagelabel>system_u:object_r:svirt_image_t:s0:c705,c757</imagelabel>
+    <label>system_u:system_r:svirt_t:s0:c221,c572</label>
+    <imagelabel>system_u:object_r:svirt_image_t:s0:c221,c572</imagelabel>
   </seclabel>
   <seclabel type='dynamic' model='dac' relabel='yes'>
     <label>+107:+107</label>
